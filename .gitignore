@@ -404,4 +404,4 @@ FodyWeavers.xsd
 .env
 
 # Folder created by Jetbrains Rider
-*.idea
+*.idea/
