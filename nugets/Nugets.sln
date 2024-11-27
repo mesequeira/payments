@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.SharedKernel", "WebApi.SharedKernel\WebApi.SharedKernel.csproj", "{167F679F-457D-408D-8374-DEFFAA8EAFDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cross.SharedKernel", "Cross.SharedKernel\Cross.SharedKernel.csproj", "{B60E0043-0CDB-4894-81E5-658B4F39C708}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{167F679F-457D-408D-8374-DEFFAA8EAFDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{167F679F-457D-408D-8374-DEFFAA8EAFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{167F679F-457D-408D-8374-DEFFAA8EAFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{167F679F-457D-408D-8374-DEFFAA8EAFDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B60E0043-0CDB-4894-81E5-658B4F39C708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B60E0043-0CDB-4894-81E5-658B4F39C708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B60E0043-0CDB-4894-81E5-658B4F39C708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B60E0043-0CDB-4894-81E5-658B4F39C708}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

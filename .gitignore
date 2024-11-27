@@ -16,6 +16,9 @@
 # Mono auto generated files
 mono_crash.*
 
+# Ignore folder .idea
+
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -396,3 +399,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# dotenv files
+.env
+
+# Folder created by Jetbrains Rider
+*.idea
