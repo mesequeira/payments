@@ -3,56 +3,32 @@ using Cross.SharedKernel.Errors;
 using Cross.SharedKernel.Exceptions;
 using Cross.SharedKernel.Results;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace WebApi.SharedKernel.Controllers;
+namespace WebApi.SharedKernel.Extensions;
 
-/// <summary>
-/// A base class for API controllers, providing common functionality and properties.
-/// It inherits from ControllerBase, the base class for Web API controllers.
-/// </summary>
-[Route("api/v{version:apiVersion}/[controller]")]
-[ApiController]
-public class ApiBaseController : ControllerBase
+public static class ResultExtensions
 {
-    /// <summary>
-    /// The mediator instance for handling MediatR requests.
-    /// </summary>
-    private ISender _sender = null!;
-
-    /// <summary>
-    /// A read-only property to get the Mediator instance, ensuring it is initialized when accessed.
-    /// </summary>
-    protected ISender Sender =>
-        _sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
-
-    /// <summary>
-    /// An utility method to match the result status code and return the appropriate IActionResult.
-    /// </summary>
-    /// <param name="result">The result to match the status code.</param>
-    /// <returns>The IActionResult with the appropriate status code.</returns>
-    protected static IResult Match(Result result)
+    public static async Task<IResult> HandleResultAsync(this Task<Result> resultTask)
     {
+        var result = await resultTask;
+
         return result switch
         {
-            { IsSuccess: true, HttpStatusCode: HttpStatusCode.OK } => Results.Ok(),
-            { IsSuccess: false } failure => Problem(failure),
+            {IsSuccess: true, HttpStatusCode: HttpStatusCode.Created} => Results.Created(),
+            { IsSuccess: true, HttpStatusCode: >= HttpStatusCode.OK and <= HttpStatusCode.IMUsed and not HttpStatusCode.Created} => Results.Ok(),
+            { IsSuccess: false } => Problem(result),
             _ => Results.StatusCode((int)result.HttpStatusCode)
         };
     }
 
-    /// <summary>
-    /// A variant of the Match method that returns the result value as a payload.
-    /// </summary>
-    /// <param name="result">The result to match the status code.</param>
-    /// <typeparam name="TOut">The type of the result value.</typeparam>
-    /// <returns>The IActionResult with the appropriate status code and payload.</returns>
-    protected static IResult Match<TOut>(Result<TOut> result)
+    public static async Task<IResult> HandleResultAsync<TResponse>(this Task<Result<TResponse>> resultTask)
     {
+        var result = await resultTask;
         return result switch
         {
-            { IsSuccess: true, HttpStatusCode: HttpStatusCode.OK } => Results.Ok(result.Value),
+            {IsSuccess: true, HttpStatusCode: HttpStatusCode.Created} => Results.Created(),
+            { IsSuccess: true, HttpStatusCode: >= HttpStatusCode.OK and <= HttpStatusCode.IMUsed and not HttpStatusCode.Created} => Results.Ok(),
+            { IsFailure: true, HttpStatusCode: HttpStatusCode.Accepted or HttpStatusCode.Created } => Results.Created(),
             Result { IsSuccess: false } failure => Problem(failure),
             _ => Results.StatusCode((int)result.HttpStatusCode)
         };
@@ -96,6 +72,7 @@ public class ApiBaseController : ControllerBase
             ErrorType.Problem => error.Code,
             ErrorType.NotFound => error.Code,
             ErrorType.Conflict => error.Code,
+            ErrorType.ConnectionProblem => error.Code,
             _ => "Server failure"
         };
 
@@ -106,6 +83,7 @@ public class ApiBaseController : ControllerBase
             ErrorType.Problem => error.Description,
             ErrorType.NotFound => error.Description,
             ErrorType.Conflict => error.Description,
+            ErrorType.ConnectionProblem => error.Description,
             _ => "An unexpected error occurred"
         };
 
@@ -116,6 +94,7 @@ public class ApiBaseController : ControllerBase
             ErrorType.Problem => "https://tools.ietf.org/html/rfc7231#section-6.5.1",
             ErrorType.NotFound => "https://tools.ietf.org/html/rfc7231#section-6.5.4",
             ErrorType.Conflict => "https://tools.ietf.org/html/rfc7231#section-6.5.8",
+            ErrorType.ConnectionProblem => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.4",
             _ => "https://tools.ietf.org/html/rfc7231#section-6.6.1"
         };
 
@@ -125,6 +104,7 @@ public class ApiBaseController : ControllerBase
             ErrorType.Validation => StatusCodes.Status400BadRequest,
             ErrorType.NotFound => StatusCodes.Status404NotFound,
             ErrorType.Conflict => StatusCodes.Status409Conflict,
+            ErrorType.ConnectionProblem => StatusCodes.Status503ServiceUnavailable,
             _ => StatusCodes.Status500InternalServerError
         };
 

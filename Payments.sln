@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41E142F2-EA0D-4BF9-9CBD-0933B246F31A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C32699C3-7F37-45D1-9259-F3C16BC07CEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{968EF02E-BBB7-48F6-92A6-FAFFE5BBA0E3}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+		.env = .env
+		docker-compose.override.yaml = docker-compose.override.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "orchestrator", "orchestrator", "{D2783075-374D-4CFC-A9A0-9E781C71060C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nugets", "nugets", "{F9B911FE-84FA-4E0D-97F1-3AB699339BCD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9EFF2859-E392-4D0C-8CFA-63831C122610}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestrator.WebApi", "src\orchestator\Orchestrator.WebApi\Orchestrator.WebApi.csproj", "{3805C2C7-C997-4AD0-8BF4-18434AD343E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cross.SharedKernel", "nugets\Cross.SharedKernel\Cross.SharedKernel.csproj", "{386206AC-0640-40F9-AF3E-15D73B31CCF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.Events", "nugets\Payments.Events\Payments.Events.csproj", "{289987C5-63BE-42A9-A178-D390B6139AB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.SharedKernel", "nugets\WebApi.SharedKernel\WebApi.SharedKernel.csproj", "{80778507-C6A5-4C3F-AE14-A1FEB94B5209}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3805C2C7-C997-4AD0-8BF4-18434AD343E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3805C2C7-C997-4AD0-8BF4-18434AD343E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3805C2C7-C997-4AD0-8BF4-18434AD343E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3805C2C7-C997-4AD0-8BF4-18434AD343E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{386206AC-0640-40F9-AF3E-15D73B31CCF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{386206AC-0640-40F9-AF3E-15D73B31CCF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{386206AC-0640-40F9-AF3E-15D73B31CCF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{386206AC-0640-40F9-AF3E-15D73B31CCF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{289987C5-63BE-42A9-A178-D390B6139AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{289987C5-63BE-42A9-A178-D390B6139AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{289987C5-63BE-42A9-A178-D390B6139AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{289987C5-63BE-42A9-A178-D390B6139AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80778507-C6A5-4C3F-AE14-A1FEB94B5209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80778507-C6A5-4C3F-AE14-A1FEB94B5209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80778507-C6A5-4C3F-AE14-A1FEB94B5209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80778507-C6A5-4C3F-AE14-A1FEB94B5209}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2783075-374D-4CFC-A9A0-9E781C71060C} = {41E142F2-EA0D-4BF9-9CBD-0933B246F31A}
+		{3805C2C7-C997-4AD0-8BF4-18434AD343E9} = {D2783075-374D-4CFC-A9A0-9E781C71060C}
+		{386206AC-0640-40F9-AF3E-15D73B31CCF3} = {F9B911FE-84FA-4E0D-97F1-3AB699339BCD}
+		{289987C5-63BE-42A9-A178-D390B6139AB4} = {F9B911FE-84FA-4E0D-97F1-3AB699339BCD}
+		{80778507-C6A5-4C3F-AE14-A1FEB94B5209} = {F9B911FE-84FA-4E0D-97F1-3AB699339BCD}
+	EndGlobalSection
+EndGlobal

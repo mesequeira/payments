@@ -1,17 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Cross SharedKernel</Title>
+        <Authors>Marcos Emmanuel Sequeira</Authors>
+        <Description>This package contains essential abstractions and base classes for building robust applications. It includes common interfaces and types such as IRepository, IUnitOfWork, AggregateRoot, and DomainEvent. Additionally, it provides utility classes for handling results and errors consistently across the application. Ideal for projects following Clean Architecture and DDD principles.</Description>
+        <Version>1.0.5</Version>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn> <!-- Optional: Suppress warnings for missing XML comments -->
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="13.0.1" />
-        <PackageReference Include="FluentValidation" Version="11.9.2" />
-        <PackageReference Include="MediatR" Version="12.3.0" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-        <PackageReference Include="Scrutor" Version="4.2.2" />
+        <PackageReference Include="AutoMapper" />
+        <PackageReference Include="FluentValidation"  />
+        <PackageReference Include="MediatR"/>
     </ItemGroup>
 
 </Project>

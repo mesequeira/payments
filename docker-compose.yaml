@@ -1,0 +1,13 @@
+﻿services:
+  orchestator.webapi:
+    image: orchestator.webapi
+    build:
+      context: .
+      dockerfile: src/orchestator/Orchestator.WebApi/Dockerfile
+      
+  sqlserverdb:
+    image: "mcr.microsoft.com/mssql/server:2022-latest" 
+
+  rabbitmq:
+    image: "rabbitmq:management"
+
