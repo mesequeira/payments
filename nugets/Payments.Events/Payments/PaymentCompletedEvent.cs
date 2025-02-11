@@ -1,3 +1,3 @@
 ﻿namespace Payments.Events.Payments;
 
-public record PaymentCompletedEvent(Guid OrderId);
+public record PaymentCompletedEvent(Guid TransactionId);

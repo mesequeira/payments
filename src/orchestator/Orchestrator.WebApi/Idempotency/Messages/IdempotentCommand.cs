@@ -7,5 +7,5 @@ namespace Orchestrator.WebApi.Idempotency.Messages;
 public abstract record IdempotentCommand : IRequest<Result>, IBaseTransactionCommand
 {
     [JsonIgnore]
-    public Guid RequestId { get; set; }
+    public Guid TransactionId { get; set; }
 }

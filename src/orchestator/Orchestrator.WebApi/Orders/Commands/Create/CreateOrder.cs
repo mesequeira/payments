@@ -1,14 +1,18 @@
-﻿using Cross.SharedKernel.Messages;
+﻿using System.Net;
+using Cross.SharedKernel.Interfaces;
+using Cross.SharedKernel.Messages;
 using Cross.SharedKernel.Results;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Orchestrator.WebApi.Idempotency.Messages;
+using Orchestrator.WebApi.Orders.Entities;
+using Orchestrator.WebApi.Orders.Repositories;
 using Payments.Events.Orders;
 
 namespace Orchestrator.WebApi.Orders.Commands.Create;
 
 public sealed record CreateOrderCommand(
-    double Amount
+    decimal Amount
 ) : IdempotentCommand, ITransactionalCommand;
 
 public sealed class CreateOrderValidator : AbstractValidator<CreateOrderCommand>
@@ -27,11 +31,9 @@ public sealed class CreateOrderCommandHandler(
 {
     public async Task<Result> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        var orderCreatedEvent = request.Adapt<OrderCreatedEvent>();
-            
-        await publisher.Publish(orderCreatedEvent, cancellationToken);
-
-        return Result.Success();
+        await publisher.Publish(new CreateOrderEvent(request.TransactionId, request.Amount), cancellationToken);
+        
+        return Result.Success(HttpStatusCode.Created);
     }
 }
 

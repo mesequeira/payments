@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Orchestrator.WebApi.Abstractions.Contexts;
 using Orchestrator.WebApi.Abstractions.Options;
+using Orchestrator.WebApi.Orders.Consumers;
 using Orchestrator.WebApi.Orders.Saga;
 
 namespace Orchestrator.WebApi.Abstractions.Extensions;
@@ -25,14 +26,13 @@ internal static class MessageBrokerExtensions
             
             configurator.AddDelayedMessageScheduler();
 
+            configurator.AddConsumer<CreateOrderEventConsumer>();
+
             configurator.AddSagaStateMachine<OrderStateMachine, OrderState>()
                 .EntityFrameworkRepository(sagaConfigurator =>
                 {
-                    sagaConfigurator.ConcurrencyMode = ConcurrencyMode.Optimistic;
-                    sagaConfigurator.AddDbContext<ApplicationDbContext, ApplicationDbContext>((_, options) =>
-                    {
-                        options.UseSqlServer(configuration.GetConnectionString("OrchestatorConnectionString"));
-                    });
+                    sagaConfigurator.ExistingDbContext<ApplicationDbContext>();
+                    sagaConfigurator.UseSqlServer();
                 });
                 
             
@@ -41,6 +41,8 @@ internal static class MessageBrokerExtensions
                 var options = context.GetRequiredService<IOptions<MessageBrokerOptions>>().Value;
                 
                 cfg.UseDelayedMessageScheduler();
+                
+                cfg.ConfigureEndpoints(context);
 
                 cfg.Host(options.ConnectionString);
             });

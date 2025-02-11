@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Orchestrator.WebApi.Idempotency.Entities;
+using Orchestrator.WebApi.Orders.Entities;
+using Orchestrator.WebApi.Orders.Saga;
 
 namespace Orchestrator.WebApi.Abstractions.Contexts;
 
@@ -25,5 +27,7 @@ public sealed class ApplicationDbContext(DbContextOptions options)
     }
     
     public DbSet<IdempotentRequest> IdempotentRequests { get; set; }
+    public DbSet<OrderState> OrderStates { get; set; }
+    public DbSet<Order> Orders { get; set; }
     
 }

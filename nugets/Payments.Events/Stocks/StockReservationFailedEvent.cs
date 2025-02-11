@@ -1,3 +1,3 @@
 ﻿namespace Payments.Events.Stocks;
 
-public record StockReservationFailedEvent(Guid OrderId);
+public record StockReservationFailedEvent(Guid TransactionId);

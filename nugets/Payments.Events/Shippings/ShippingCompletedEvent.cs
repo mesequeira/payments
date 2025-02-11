@@ -1,3 +1,3 @@
 ﻿namespace Payments.Events.Shippings;
 
-public record ShippingCompletedEvent(Guid OrderId);
+public record ShippingCompletedEvent(Guid TransactionId);
