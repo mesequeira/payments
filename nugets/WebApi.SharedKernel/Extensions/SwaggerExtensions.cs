@@ -1,27 +1,33 @@
+using System.Reflection;
 using Asp.Versioning;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Orchestrator.WebApi.Abstractions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using WebApi.SharedKernel.Options;
 
 namespace Orchestrator.WebApi.Abstractions.Extensions;
 
 /// <summary>
 /// Represents an extension method to add the SwaggerGen configuration to the service collection.
 /// </summary>
-public static class SwaggerDependency
+public static class SwaggerExtensions
 {
     /// <summary>
     /// This method is useful to configure Swagger with the versioning and the API key security definition.
     /// Also, we are adding the XML documentation of the endpoints so it can be displayed in the Swagger UI.
     /// </summary>
     /// <param name="services">The service collection.</param>
-    public static void AddSwaggerGenConfiguration(this IServiceCollection services)
+    /// <param name="assemblyReference">An instance of the assembly that is initializing this method.</param>
+    public static void AddSwaggerGenConfiguration(
+        this IServiceCollection services,
+        Assembly assemblyReference
+    )
     {
         // Configure the swagger to add the xml documentation of their endpoints
         services.AddSwaggerGen(opt =>
         {
-            var assembly = typeof(Program).Assembly.GetName().Name;
+            var assembly = assemblyReference.GetName().Name;
             var xmlFile = $"{assembly}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             opt.IncludeXmlComments(xmlPath);

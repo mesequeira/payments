@@ -1,5 +1,6 @@
 using Carter;
 using FluentValidation;
+using Orchestrator.WebApi.Abstractions.Extensions;
 using Payment.WebApi.Abstractions.Contexts;
 using Payment.WebApi.Abstractions.Extensions;
 using WebApi.SharedKernel.Extensions;
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
 
-builder.Services.AddSwaggerGenConfiguration();
+builder.Services.AddSwaggerGenConfiguration(assembly);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddValidatorsFromAssembly(assembly);
 builder.Services.AddMediatRConfiguration(assembly);

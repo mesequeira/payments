@@ -1,11 +1,9 @@
-﻿using MassTransit;
+﻿using Inventory.WebApi.Stocks.Consumers;
+using MassTransit;
 using Microsoft.Extensions.Options;
-using Orchestrator.WebApi.Abstractions.Contexts;
-using Orchestrator.WebApi.Orders.Consumers;
-using Orchestrator.WebApi.Orders.Saga;
 using WebApi.SharedKernel.Options;
 
-namespace Orchestrator.WebApi.Abstractions.Extensions;
+namespace Inventory.WebApi.Abstractions.Extensions;
 
 internal static class MessageBrokerExtensions
 {
@@ -25,15 +23,7 @@ internal static class MessageBrokerExtensions
             
             configurator.AddDelayedMessageScheduler();
 
-            configurator.AddConsumer<CreateOrderEventConsumer>();
-
-            configurator.AddSagaStateMachine<OrderStateMachine, OrderState>()
-                .EntityFrameworkRepository(sagaConfigurator =>
-                {
-                    sagaConfigurator.ExistingDbContext<ApplicationDbContext>();
-                    sagaConfigurator.UseSqlServer();
-                });
-                
+            configurator.AddConsumer<ReserveStockEventConsumer>();
             
             configurator.UsingRabbitMq((context, cfg) =>
             {

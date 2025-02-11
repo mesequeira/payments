@@ -1,6 +1,6 @@
-﻿namespace Payment.WebApi.Abstractions.Options;
+﻿namespace WebApi.SharedKernel.Options;
 
-internal sealed class MessageBrokerOptions
+public sealed class MessageBrokerOptions
 {
     public required string ConnectionString { get; set; }
     public required string Username { get; set; }

@@ -7,10 +7,10 @@ public class CreatePaymentEventConsumer(
     
 ) : IConsumer<CreatePaymentEvent>
 {
-    public Task Consume(ConsumeContext<CreatePaymentEvent> context)
+    public async Task Consume(ConsumeContext<CreatePaymentEvent> context)
     {
         Console.WriteLine($"Payment created for order {context.Message.TransactionId}");
         
-        return Task.CompletedTask;
+        await context.Publish(new PaymentCompletedEvent(context.Message.TransactionId), context.CancellationToken);
     }
 }

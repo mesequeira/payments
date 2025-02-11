@@ -11,6 +11,12 @@
       context: .
       dockerfile: src/payments/Payment.WebApi/Dockerfile
       
+  inventory.webapi:
+    image: inventory.webapi
+    build:
+      context: .
+      dockerfile: src/inventory/Inventory.WebApi/Dockerfile
+      
   sqlserverdb:
     image: "mcr.microsoft.com/mssql/server:2022-latest" 
 

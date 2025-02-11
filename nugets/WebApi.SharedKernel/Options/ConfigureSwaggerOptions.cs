@@ -1,9 +1,10 @@
 using Asp.Versioning.ApiExplorer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Payment.WebApi.Abstractions.Options;
+namespace WebApi.SharedKernel.Options;
 
 /// <summary>
 /// Represents the configuration for the swagger like setting the title and version.

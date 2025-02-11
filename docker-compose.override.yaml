@@ -33,6 +33,24 @@
     networks:
       - my_network
 
+  inventory.webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8009
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__InventoryConnectionString=${INVENTORY_CONNECTIONSTRING}
+      - MessageBrokerOptions__Username=${RABBITMQ_USER}
+      - MessageBrokerOptions__Password=${RABBITMQ_PASSWORD}
+      - MessageBrokerOptions__ConnectionString=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672
+    ports:
+      - 8009:80
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - my_network
+
+
   sqlserverdb:
     environment:
       - ACCEPT_EULA=Y

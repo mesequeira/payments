@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Options;
-using Payment.WebApi.Abstractions.Options;
 using Payment.WebApi.Payments.Consumers;
+using WebApi.SharedKernel.Options;
 
 namespace Payment.WebApi.Abstractions.Extensions;
 

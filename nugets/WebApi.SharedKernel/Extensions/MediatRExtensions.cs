@@ -1,13 +1,17 @@
 ﻿using System.Reflection;
 using Cross.SharedKernel.Behaviors;
 using MediatR.NotificationPublishers;
-using Orchestrator.WebApi.Idempotency.Behaviors;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Orchestrator.WebApi.Abstractions.Extensions;
+namespace WebApi.SharedKernel.Extensions;
 
 public static class MediatRExtensions
 {
-    public static void AddMediatRConfiguration(this IServiceCollection services, Assembly assembly)
+    public static void AddMediatRConfiguration(
+        this IServiceCollection services, 
+        Assembly assembly,
+        Action<MediatRServiceConfiguration>? externalConfiguration = null
+    )
     {
         services.AddHttpContextAccessor();
         
@@ -17,8 +21,8 @@ public static class MediatRExtensions
             configurator.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
             configurator.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
             configurator.AddOpenBehavior(typeof(TransactionalPipelineBehavior<,>));
-            configurator.AddOpenBehavior(typeof(IdempotentPipelineBehavior<,>));
             configurator.NotificationPublisher = new TaskWhenAllPublisher();
+            externalConfiguration?.Invoke(configurator);
         });
     }
 }
